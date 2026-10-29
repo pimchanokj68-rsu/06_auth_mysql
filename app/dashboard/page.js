@@ -33,6 +33,7 @@ export default function DashboardPage() {
         }
       });
 
+    // กลับมาหน้านี้ด้วยปุ่ม Back (bfcache) ให้โหลดใหม่เพื่อตรวจ cookie อีกครั้ง
     const handlePageShow = (event) => {
       if (event.persisted) {
         window.location.reload();
@@ -61,32 +62,57 @@ export default function DashboardPage() {
 
   if (errorMessage) {
     return (
-      <div className="auth-box">
+      <div className="card auth-card">
         <h1>Dashboard</h1>
         <p className="error">{errorMessage}</p>
-        <button onClick={handleLogout} disabled={loggingOut}>
-          Logout
-        </button>
+        <p className="auth-footer">
+          <button className="btn-danger" onClick={handleLogout} disabled={loggingOut}>
+            Logout
+          </button>
+        </p>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="auth-box">
-        <p>Loading...</p>
+      <div className="card auth-card">
+        <p className="loading">Loading...</p>
       </div>
     );
   }
 
+  const initial = (user.fullname || "?").trim().slice(0, 1).toUpperCase();
+
   return (
-    <div className="auth-box">
-      <h1>Dashboard</h1>
-      <p>Welcome, {user.fullname}</p>
-      <p>Email: {user.email}</p>
-      <button onClick={handleLogout} disabled={loggingOut}>
-        Logout
-      </button>
+    <div className="card dashboard-card">
+      <div className="dashboard-cover" />
+      <div className="dashboard-body">
+        <div className="avatar" aria-hidden="true">
+          {initial}
+        </div>
+        <h1>Dashboard</h1>
+        <p className="auth-subtitle">Welcome, {user.fullname}</p>
+
+        <dl className="profile-list">
+          <div>
+            <dt>Full name</dt>
+            <dd>{user.fullname}</dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd>{user.email}</dd>
+          </div>
+          <div>
+            <dt>Member ID</dt>
+            <dd>#{user.id}</dd>
+          </div>
+        </dl>
+
+        <button className="btn-danger" onClick={handleLogout} disabled={loggingOut}>
+          {loggingOut ? "Logging out..." : "Logout"}
+        </button>
+      </div>
     </div>
   );
 }

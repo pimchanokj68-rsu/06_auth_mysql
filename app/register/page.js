@@ -42,36 +42,54 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="auth-box">
+    <div className="card auth-card">
+      <p className="eyebrow">Create account</p>
       <h1>Register</h1>
+      <p className="auth-subtitle">สมัครสมาชิกเพื่อเข้าใช้งานหน้า Dashboard</p>
+
       <form onSubmit={handleRegister}>
-        <input
-          value={fullname}
-          onChange={(event) => setFullname(event.target.value)}
-          placeholder="Full name"
-          required
-        />
-        <input
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="Password"
-          minLength={6}
-          required
-        />
+        <label className="field">
+          Full name
+          <input
+            value={fullname}
+            onChange={(event) => setFullname(event.target.value)}
+            placeholder="Full name"
+            autoComplete="name"
+            required
+          />
+        </label>
+        <label className="field">
+          Email
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Email"
+            autoComplete="email"
+            required
+          />
+        </label>
+        <label className="field">
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Password"
+            autoComplete="new-password"
+            minLength={6}
+            required
+          />
+          <span className="hint">อย่างน้อย 6 ตัวอักษร</span>
+        </label>
         <button type="submit" disabled={submitting}>
-          Register
+          {submitting ? "Registering..." : "Register"}
         </button>
       </form>
+
       {message && <p className="error">{message}</p>}
-      <p>
+
+      <p className="auth-footer">
         Already have an account? <Link href="/login">Login</Link>
       </p>
     </div>

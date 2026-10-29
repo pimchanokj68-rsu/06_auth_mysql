@@ -41,29 +41,42 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-box">
+    <div className="card auth-card">
+      <p className="eyebrow">Welcome back</p>
       <h1>Login</h1>
+      <p className="auth-subtitle">เข้าสู่ระบบด้วยอีเมลและรหัสผ่านของคุณ</p>
+
       <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="Password"
-          required
-        />
+        <label className="field">
+          Email
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Email"
+            autoComplete="email"
+            required
+          />
+        </label>
+        <label className="field">
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Password"
+            autoComplete="current-password"
+            required
+          />
+        </label>
         <button type="submit" disabled={submitting}>
-          Login
+          {submitting ? "Logging in..." : "Login"}
         </button>
       </form>
+
       {message && <p className="error">{message}</p>}
-      <p>
+
+      <p className="auth-footer">
         No account yet? <Link href="/register">Register</Link>
       </p>
     </div>
